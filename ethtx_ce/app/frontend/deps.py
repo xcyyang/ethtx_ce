@@ -43,7 +43,7 @@ def verify_password(username: str, password: str) -> bool:
     )
 
 
-def get_eth_price() -> Optional[float]:
+def get_eth_price(nativecoin: str) -> Optional[float]:
     """
     Get current ETH price from coinbase.com
     Cache price for 60 seconds.
@@ -55,14 +55,21 @@ def get_eth_price() -> Optional[float]:
         eth_price is None
         or eth_price_update is None
         or (current_time - eth_price_update) > 60
-    ):
-        response = requests.get(
-            "https://api.coinbase.com/v2/prices/ETH-USD/buy", timeout=2
-        )
-        if response.status_code == 200:
-            eth_price = float(json.loads(response.content)["data"]["amount"])
-            eth_price_update = time.time()
-
+    ):  
+        if nativecoin == "BNB":
+            response = requests.get(
+                "https://coincodex.com/api/coincodex/get_coin/bnb", timeout=10
+            )
+            if response.status_code == 200:
+                eth_price = float(json.loads(response.content)["today_open"])
+                eth_price_update = time.time()
+        else:
+            response = requests.get(
+                "https://api.coinbase.com/v2/prices/ETH-USD/buy", timeout=2
+            )
+            if response.status_code == 200:
+                eth_price = float(json.loads(response.content)["data"]["amount"])
+                eth_price_update = time.time()
     return eth_price
 
 

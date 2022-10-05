@@ -150,6 +150,8 @@
                 {% for chain in chains %}
                     {% if chain == 'mainnet' %}
                     <option value="mainnet">ETH mainnet</option>
+                    {% elif chain == 'bsc' %}
+                    <option value="bsc">BNB Smart Chain</option>
                     {% else %}
                     <option value="{{ chain }}">{{ chain|title + ' testnet' }}</option>
                     {% endif %}

@@ -57,15 +57,30 @@ def read_decoded_transaction(
 
 def show_transaction_page(data: DecodedTransaction) -> render_template:
     """Render transaction/exception page."""
+    nativecoin = current_app.config.get("CHAINID_NATIVECOIN").get(data.metadata.chain_id,"ETH")
+    explorerurl = current_app.config.get("CHAINID_EXPLORERURL").get(data.metadata.chain_id,"https://etherscan.io/")
+
+    if nativecoin != "ETH":
+        for balance in data.balances:
+            for token in balance.tokens:
+                if token.get("token_address","") == "0x0000000000000000000000000000000000000000":
+                    token["token_symbol"] = nativecoin
+                    token["token_standard"] = nativecoin
+        for transfer in data.transfers:
+            if transfer.token_address == "0x0000000000000000000000000000000000000000":
+                transfer.token_symbol = nativecoin
+                transfer.token_standard = nativecoin
     return (
         render_template(
             "transaction.html",
-            eth_price=deps.get_eth_price(),
+            eth_price=deps.get_eth_price(nativecoin),
             transaction=data.metadata,
             events=data.events,
             call=data.calls,
             transfers=data.transfers,
             balances=data.balances,
+            nativecoin=nativecoin,
+            explorerurl=explorerurl,
         ),
         200,
     )

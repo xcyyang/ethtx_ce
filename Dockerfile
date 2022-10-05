@@ -34,6 +34,6 @@ ARG CI=1
 COPY ./ethtx_ce /app
 ENV PYTHONPATH=/app
 
-EXPOSE 5000
+EXPOSE 8082
 
 ENTRYPOINT ["/entrypoint.sh"]
