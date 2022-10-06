@@ -34,9 +34,10 @@ ethtx_config = EthTxConfig(
     },
     default_chain="mainnet",
     etherscan_urls={
-        "mainnet": "https://api.etherscan.io/api?apikey="+os.getenv("ETHERSCAN_KEY"),
-        "goerli": "https://api-goerli.etherscan.io/api?apikey="+os.getenv("ETHERSCAN_KEY"),
-        "bsc": "https://api.bscscan.com/api?apikey="+os.getenv("BSCSCAN_KEY"),
+        "mainnet": "https://api.etherscan.io/api?apikey="+os.getenv("ETHERSCAN_KEY")+"&",
+        "goerli": "https://api-goerli.etherscan.io/api?apikey="+os.getenv("ETHERSCAN_KEY")+"&",
+        "bsc": "https://api.bscscan.com/api?apikey="+os.getenv("BSCSCAN_KEY")+"&",
+        # "bsc": "https://api.bscscan.com/api",
     },
 )
 
