@@ -63,6 +63,13 @@ def get_eth_price(nativecoin: str) -> Optional[float]:
             if response.status_code == 200:
                 eth_price = float(json.loads(response.content)["today_open"])
                 eth_price_update = time.time()
+        elif nativecoin == "MATIC":
+            response = requests.get(
+                "https://api.coinbase.com/v2/prices/MATIC-USD/buy", timeout=2
+            )
+            if response.status_code == 200:
+                eth_price = float(json.loads(response.content)["data"]["amount"])
+                eth_price_update = time.time()
         else:
             response = requests.get(
                 "https://api.coinbase.com/v2/prices/ETH-USD/buy", timeout=2

@@ -31,13 +31,14 @@ ethtx_config = EthTxConfig(
         "mainnet": dict(hook=os.getenv("MAINNET_NODE_URL", ""), poa=False),
         "goerli": dict(hook=os.getenv("GOERLI_NODE_URL", ""), poa=True),
         "bsc": dict(hook=os.getenv("BSC_NODE_URL", ""), poa=True),
+        "polygon": dict(hook=os.getenv("POLYGON_NODE_URL", ""), poa=True),
     },
     default_chain="mainnet",
     etherscan_urls={
         "mainnet": "https://api.etherscan.io/api?apikey="+os.getenv("ETHERSCAN_KEY")+"&",
         "goerli": "https://api-goerli.etherscan.io/api?apikey="+os.getenv("ETHERSCAN_KEY")+"&",
         "bsc": "https://api.bscscan.com/api?apikey="+os.getenv("BSCSCAN_KEY")+"&",
-        # "bsc": "https://api.bscscan.com/api",
+        "polygon": "https://api.polygonscan.com/api?apikey="+os.getenv("POLYGONSCAN_KEY")+"&",
     },
 )
 
